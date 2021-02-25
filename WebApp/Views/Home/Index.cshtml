@@ -1,0 +1,49 @@
+﻿@model BookingModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Name)</td>
+                <td>@Html.TextBoxFor(m => m.Name)</td>
+            </tr>
+            
+            <tr>
+                <td>@Html.LabelFor(m => m.Email)</td>
+                <td>@Html.TextBoxFor(m => m.Email)</td>
+            </tr>
+            
+            <tr>
+                <td>@Html.LabelFor(m => m.Tour)</td>
+                <td>
+                    @Html.DropDownListFor(m => m.Tour, new List<SelectListItem>()
+                    {
+                        new SelectListItem("TourDeNow", "now"),
+                        new SelectListItem("TourDeLater", "later")
+                    })
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <span>@Html.RadioButtonFor(m => m.ActionType, "Book") Book</span>
+                    <span>@Html.RadioButtonFor(m => m.ActionType, "Cancel") Cancel</span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td><input type="submit" value="Submit"></td>
+            </tr>
+            
+        </table>
+
+    }
+    
+</div>

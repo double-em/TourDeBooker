@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "6hpFXmN/WmX0jwR1Pp4HQn04TRa8Ljl6BoTyd4tNJapZndFeDx65Cc+wRrkcv37cjgkrjTwBS2oxsiE0HLChtw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Marianne\\source\\repos\\TourDeBooker\\BackOfficeService\\BackOfficeService.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Marianne\\.nuget\\packages\\rabbitmq.client\\6.2.1\\rabbitmq.client.6.2.1.nupkg.sha512",
+    "C:\\Users\\Marianne\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\Marianne\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}
