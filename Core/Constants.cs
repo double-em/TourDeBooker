@@ -7,7 +7,6 @@
             public static string TourBooking = "tour_booking";
         }
         
-        
         public static class Channels
         {
             public static class Tour

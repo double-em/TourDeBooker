@@ -23,11 +23,11 @@
             <tr>
                 <td>@Html.LabelFor(m => m.Tour)</td>
                 <td>
-                    @Html.DropDownListFor(m => m.Tour, new List<SelectListItem>()
+                    @Html.DropDownListFor(m => m.Tour, new List<SelectListItem>
                     {
-                        new SelectListItem("TourDeNow", "now"),
-                        new SelectListItem("TourDeLater", "later")
-                    })
+                        new ("TourDeNow", "now"),
+                        new ("TourDeLater", "later")
+                    }, "Please select")
                 </td>
             </tr>
             
