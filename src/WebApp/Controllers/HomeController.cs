@@ -32,19 +32,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Index(BookingModel booking)
         {
-            switch (booking.ActionType)
-            {
-                case BookingType.Book:
-                    _bookingSender.SendBooking(Constants.Channels.Tour.Booked, booking);
-                    break;
-                
-                case BookingType.Cancel:
-                    _bookingSender.SendBooking(Constants.Channels.Tour.Cancelled, booking);
-                    break;
-                
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            _bookingSender.SendBooking(booking);
             
             return View();
         }

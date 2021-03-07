@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Infrastructure;
 using Infrastructure.Services.Options;
 using Microsoft.Extensions.Configuration;
@@ -36,7 +37,8 @@ namespace BackOfficeService
                     var messageClientSettingsConfig = hostContext.Configuration.GetSection("RabbitMq");
                     var messageClientSettings = messageClientSettingsConfig.Get<RabbitMqConfiguration>();
                     services.Configure<RabbitMqConfiguration>(messageClientSettingsConfig);
-                    
+
+                    services.AddApplication();
                     services.AddInfrastructure(hostContext.Configuration);
 
                     if (messageClientSettings.Enabled)

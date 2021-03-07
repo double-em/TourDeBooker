@@ -4,6 +4,6 @@ namespace Application.Common.Interfaces
 {
     public interface IBookingSender
     {
-        void SendBooking(string queue, BookingModel booking);
+        void SendBooking(BookingModel booking);
     }
 }

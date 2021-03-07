@@ -13,7 +13,7 @@ namespace Infrastructure.Services
     public class BookingSender : IBookingSender
     {
         private readonly string _hostname;
-        private readonly string _queueName;
+        private readonly string _exchangeName;
         private readonly string _rabbitMqUser;
         private readonly string _rabbitMqPass;
         private IConnection _connection;
@@ -21,6 +21,7 @@ namespace Infrastructure.Services
         public BookingSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
         {
             _hostname = rabbitMqOptions.Value.Hostname;
+            _exchangeName = rabbitMqOptions.Value.Exchange;
             _rabbitMqUser = rabbitMqOptions.Value.Username;
             _rabbitMqPass = rabbitMqOptions.Value.Password;
             
@@ -28,22 +29,22 @@ namespace Infrastructure.Services
             
         }
 
-        public void SendBooking(string queue, BookingModel booking)
+        public void SendBooking(BookingModel booking)
         {
             if (ConnectionExists())
             {
                 using (var channel = _connection.CreateModel())
                 {
                     channel.ExchangeDeclare(
-                        exchange: Constants.Exchange.TourBooking,
+                        exchange: _exchangeName,
                         type: "topic");
 
                     var json = JsonConvert.SerializeObject(booking);
                     var body = Encoding.UTF8.GetBytes(json);
                     
                     channel.BasicPublish(
-                        exchange: Constants.Exchange.TourBooking,
-                        routingKey: queue,
+                        exchange: _exchangeName,
+                        routingKey: $"{_exchangeName}.{booking.ActionType.ToString().ToLower()}",
                         basicProperties: null,
                         body: body);
                 }

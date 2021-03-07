@@ -23,6 +23,7 @@ namespace BackOfficeService
         private IModel _channel;
         private IConnection _connection;
         private readonly string _hostname;
+        private readonly string _exchangeName;
         private readonly string _queueName;
         private readonly string _username;
         private readonly string _password;
@@ -32,9 +33,11 @@ namespace BackOfficeService
             _logger = logger;
             
             _hostname = rabbitMqOptions.Value.Hostname;
-            _queueName = rabbitMqOptions.Value.Queue;
+            _exchangeName = rabbitMqOptions.Value.Exchange;
+            _queueName = $"{_exchangeName}.{rabbitMqOptions.Value.Queue}";
             _username = rabbitMqOptions.Value.Username;
             _password = rabbitMqOptions.Value.Password;
+            
             InitializeRabbitMqListener();
         }
 
@@ -52,13 +55,19 @@ namespace BackOfficeService
             _channel = _connection.CreateModel();
             
             _channel.ExchangeDeclare(
-                exchange: Constants.Exchange.TourBooking,
-                type: "topic",
-                durable: true);
+                exchange: _exchangeName,
+                type: "topic");
+
+            _channel.QueueDeclare(
+                queue: _queueName,
+                durable: false,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
             
             _channel.QueueBind(queue: _queueName,
-                exchange: Constants.Exchange.TourBooking,
-                routingKey: Constants.Channels.Tour.TourSubChannels);
+                exchange: _exchangeName,
+                routingKey: _queueName);
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -89,7 +98,7 @@ namespace BackOfficeService
 
         private void HandleMessage(string routingKey, BookingModel booking)
         {
-            Console.WriteLine("[x] Received '{0}':'{1}'",
+            Console.WriteLine("[x] Received '{0}': '{1}'",
                 routingKey,
                 booking);
         }
