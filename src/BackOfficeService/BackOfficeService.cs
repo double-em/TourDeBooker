@@ -98,9 +98,9 @@ namespace BackOfficeService
 
         private void HandleMessage(string routingKey, BookingModel booking)
         {
-            Console.WriteLine("[x] Received '{0}': '{1}'",
-                routingKey,
-                booking);
+            var currentTime = DateTime.Now.ToLocalTime().ToLongTimeString();
+            Console.WriteLine($"[{currentTime}] Received '{routingKey}': '{booking}'");
+
         }
 
         private void RabbitMq_ConnectionShutdown(object sender, ShutdownEventArgs e)

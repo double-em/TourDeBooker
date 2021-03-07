@@ -1,49 +1,50 @@
-﻿@model Application.Common.Models.BookingModel
+﻿@using Application.Common.Models
+@model Application.Common.Models.BookingModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Your next destination";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container center" style="max-width: 576px">
     
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-    {
-        <table>
-            <tr>
-                <td>@Html.LabelFor(m => m.Name)</td>
-                <td>@Html.TextBoxFor(m => m.Name)</td>
-            </tr>
-            
-            <tr>
-                <td>@Html.LabelFor(m => m.Email)</td>
-                <td>@Html.TextBoxFor(m => m.Email)</td>
-            </tr>
-            
-            <tr>
-                <td>@Html.LabelFor(m => m.Tour)</td>
-                <td>
-                    @Html.DropDownListFor(m => m.Tour, new List<SelectListItem>
-                    {
-                        new ("TourDeNow", "now"),
-                        new ("TourDeLater", "later")
-                    }, "Please select")
-                </td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <span>@Html.RadioButtonFor(m => m.ActionType, "Book") Book</span>
-                    <span>@Html.RadioButtonFor(m => m.ActionType, "Cancel") Cancel</span>
-                </td>
-            </tr>
-            
-            <tr>
-                <td><input type="submit" value="Submit"></td>
-            </tr>
-            
-        </table>
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Book a tour <strong>@@TourDeBooker</strong></p>
+    </div>
 
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {@class = "row"}))
+    {
+        <div class="col-12 mb-3">
+            @Html.LabelFor(m => m.Name, new {@class = "form-label"})
+            @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+        </div>
+
+        <div class="col-12 mb-3">
+            @Html.LabelFor(m => m.Email, new {@class = "form-label"})
+            @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
+        </div>
+
+        <div class="col-12 mb-3">
+            @Html.LabelFor(m => m.Tour, new {@class = "form-label"})
+            @Html.DropDownListFor(m => m.Tour, new List<SelectListItem>
+            {
+                new("TourDeNow", "tourdenow"),
+                new("TourDeLater", "tourdelater")
+            }, "Please select", new {@class = "form-control"})
+        </div>
+
+        <div class="col-12 mb-3">
+            @foreach (var value in Enum.GetValues(typeof(BookingType)))
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="@value" name="@nameof(BookingModel.ActionType)" value="@value">
+                    <label class="form-check-label" for="@value">@value</label>
+                </div>
+            }
+        </div>
+
+        <div class="col-12 mb-3">
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </div>
     }
-    
+
 </div>
