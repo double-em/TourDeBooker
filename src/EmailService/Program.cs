@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using Constants = Core.Constants;
+using Constants = Domain.Constants;
 
 namespace EmailService 
 {

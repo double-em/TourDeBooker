@@ -1,4 +1,4 @@
-﻿namespace WebApp.Models
+﻿namespace Application.Common.Models
 {
     public enum BookingType
     {

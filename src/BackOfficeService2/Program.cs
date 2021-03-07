@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Constants = Core.Constants;
 
-namespace BackOfficeService
+namespace BackOfficeService2
 {
     class Program
     {

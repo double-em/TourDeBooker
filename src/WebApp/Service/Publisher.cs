@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 using RabbitMQ.Client;
-using Constants = Core.Constants;
+using Constants = Domain.Constants;
 
 namespace WebApp.Service
 {
