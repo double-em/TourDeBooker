@@ -10,19 +10,18 @@ using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApp.Models;
-using WebApp.Service;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IMessageSender _messageSender;
+        private readonly IBookingSender _bookingSender;
 
-        public HomeController(ILogger<HomeController> logger, IMessageSender messageSender)
+        public HomeController(ILogger<HomeController> logger, IBookingSender bookingSender)
         {
             _logger = logger;
-            _messageSender = messageSender;
+            _bookingSender = bookingSender;
         }
 
         public IActionResult Index()
@@ -36,11 +35,11 @@ namespace WebApp.Controllers
             switch (booking.ActionType)
             {
                 case BookingType.Book:
-                    Publisher.PublishMessage(Constants.Channels.Tour.Booked, booking.ToString());
+                    _bookingSender.SendBooking(Constants.Channels.Tour.Booked, booking);
                     break;
                 
                 case BookingType.Cancel:
-                    Publisher.PublishMessage(Constants.Channels.Tour.Cancelled, booking.ToString());
+                    _bookingSender.SendBooking(Constants.Channels.Tour.Cancelled, booking);
                     break;
                 
                 default:

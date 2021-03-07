@@ -8,13 +8,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOfficeService2", "src\B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{6E88FF6C-6246-42DF-AB54-C24E0C529136}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{9DE7FA91-2B98-4265-BE31-06F9CFAA747D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{9DE7FA91-2B98-4265-BE31-06F9CFAA747D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{4DB10623-6300-45FC-BEFD-98B122728970}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{4DB10623-6300-45FC-BEFD-98B122728970}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4A747F74-E9DA-4D41-B255-2150AB679222}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOfficeService", "BackOfficeService\BackOfficeService.csproj", "{85A7780A-C1BD-406F-B2BE-E461C1A27796}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOfficeService", "src\BackOfficeService\BackOfficeService.csproj", "{85A7780A-C1BD-406F-B2BE-E461C1A27796}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

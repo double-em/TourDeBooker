@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Services
 {
-    public class BookingSender : IMessageSender
+    public class BookingSender : IBookingSender
     {
         private readonly string _hostname;
         private readonly string _queueName;
