@@ -1,0 +1,51 @@
+version: "3.1"
+
+services:
+  rabbitmq:
+    hostname: rabbitmq
+    container_name: rabbitmq_1
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 15672:15672
+        
+  webapp:
+    container_name: webapp_1
+    build:
+      context: ../../src
+      dockerfile: WebApp/Dockerfile
+    ports:
+      - 5000:80
+    environment:
+      RABBIT_HOST: "rabbitmq"
+      RABBIT_PORT: 5672
+      RABBIT_USER: "guest"
+      RABBIT_PASSWORD: "guest"
+    depends_on:
+      - rabbitmq
+        
+  backofficeservice:
+    container_name: backofficeservice_1
+    build:
+      context: ../../src
+      dockerfile: BackOfficeService/Dockerfile
+    environment:
+      RABBIT_HOST: "rabbitmq"
+      RABBIT_PORT: 5672
+      RABBIT_USER: "guest"
+      RABBIT_PASSWORD: "guest"
+    depends_on:
+      - rabbitmq
+        
+  emailservice:
+    container_name: emailservice_1
+    build:
+      context: ../../src
+      dockerfile: EmailService/Dockerfile
+    environment:
+      RABBIT_HOST: "rabbitmq"
+      RABBIT_PORT: 5672
+      RABBIT_USER: "guest"
+      RABBIT_PASSWORD: "guest"
+    depends_on:
+      - rabbitmq
