@@ -10,7 +10,7 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IMessageSender, MessageSender>();
+            services.AddTransient<IMessageSender, BookingSender>();
 
             return services;
         }

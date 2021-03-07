@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Services
 {
-    public class MessageSender : IMessageSender
+    public class BookingSender : IMessageSender
     {
         private readonly string _hostname;
         private readonly string _queueName;
@@ -18,7 +18,7 @@ namespace Infrastructure.Services
         private readonly string _rabbitMqPass;
         private IConnection _connection;
 
-        public MessageSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
+        public BookingSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
         {
             _hostname = rabbitMqOptions.Value.Hostname;
             _rabbitMqUser = rabbitMqOptions.Value.Username;
