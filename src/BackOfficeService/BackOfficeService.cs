@@ -12,7 +12,6 @@ using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using Newtonsoft.Json;
 using RabbitMQ.Client.Events;
-using Constants = Infrastructure.Constants;
 
 namespace BackOfficeService
 {
@@ -64,10 +63,6 @@ namespace BackOfficeService
                 exclusive: false,
                 autoDelete: false,
                 arguments: null);
-            
-            _channel.QueueBind(queue: _queueName,
-                exchange: _exchangeName,
-                routingKey: _queueName);
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)

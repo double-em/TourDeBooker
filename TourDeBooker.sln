@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "src\WebApp\WebApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "src\EmailService\EmailService.csproj", "{8A1BE5DB-7760-4621-B7B2-6E81FC6C4F43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOfficeService2", "src\BackOfficeService2\BackOfficeService2.csproj", "{0135FBBD-A5D6-4464-848F-F3119BA2884F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Domain\Domain.csproj", "{6E88FF6C-6246-42DF-AB54-C24E0C529136}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{9DE7FA91-2B98-4265-BE31-06F9CFAA747D}"
@@ -30,10 +28,6 @@ Global
 		{8A1BE5DB-7760-4621-B7B2-6E81FC6C4F43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A1BE5DB-7760-4621-B7B2-6E81FC6C4F43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A1BE5DB-7760-4621-B7B2-6E81FC6C4F43}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0135FBBD-A5D6-4464-848F-F3119BA2884F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0135FBBD-A5D6-4464-848F-F3119BA2884F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0135FBBD-A5D6-4464-848F-F3119BA2884F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0135FBBD-A5D6-4464-848F-F3119BA2884F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6E88FF6C-6246-42DF-AB54-C24E0C529136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6E88FF6C-6246-42DF-AB54-C24E0C529136}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E88FF6C-6246-42DF-AB54-C24E0C529136}.Release|Any CPU.ActiveCfg = Release|Any CPU
