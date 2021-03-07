@@ -27,15 +27,10 @@ services:
     depends_on:
       - rabbitmq
         
-#  emailservice:
-#    container_name: emailservice_1
-#    build:
-#      context: ../../src
-#      dockerfile: EmailService/Dockerfile
-#    environment:
-#      RABBIT_HOST: "rabbitmq"
-#      RABBIT_PORT: 5672
-#      RABBIT_USER: "guest"
-#      RABBIT_PASSWORD: "guest"
-#    depends_on:
-#      - rabbitmq
+  emailservice:
+    container_name: emailservice_1
+    build:
+      context: ../../src
+      dockerfile: EmailService/Dockerfile
+    depends_on:
+      - rabbitmq

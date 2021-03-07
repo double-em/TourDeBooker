@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,15 +7,15 @@ using Infrastructure.Services.Options;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using RabbitMQ.Client;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace BackOfficeService
+namespace EmailService
 {
-    public class BackOfficeService : BackgroundService
+    public class EmailService : BackgroundService
     {
-        private readonly ILogger<BackOfficeService> _logger;
+        private readonly ILogger<EmailService> _logger;
 
         private IModel _channel;
         private IConnection _connection;
@@ -27,7 +25,7 @@ namespace BackOfficeService
         private readonly string _username;
         private readonly string _password;
 
-        public BackOfficeService(ILogger<BackOfficeService> logger, IOptions<RabbitMqConfiguration> rabbitMqOptions)
+        public EmailService(ILogger<EmailService> logger, IOptions<RabbitMqConfiguration> rabbitMqOptions)
         {
             _logger = logger;
             
