@@ -54,7 +54,8 @@ namespace EmailService
             
             _channel.ExchangeDeclare(
                 exchange: _exchangeName,
-                type: "topic");
+                type: "topic",
+                durable: true);
 
             var args = new Dictionary<string, object> {{"x-dead-letter-exchange", "my-dlx"}};
 

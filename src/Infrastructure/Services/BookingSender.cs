@@ -37,16 +37,25 @@ namespace Infrastructure.Services
                 {
                     channel.ExchangeDeclare(
                         exchange: _exchangeName,
-                        type: "topic");
+                        type: "topic",
+                        durable: true);
 
                     var json = JsonConvert.SerializeObject(booking);
                     var body = Encoding.UTF8.GetBytes(json);
+
+                    IBasicProperties properties = channel.CreateBasicProperties();
+                    
+                    properties.DeliveryMode = 2;
+                    
+                    channel.ConfirmSelect();
                     
                     channel.BasicPublish(
                         exchange: _exchangeName,
                         routingKey: $"{_exchangeName}.{booking.ActionType.ToString().ToLower()}",
-                        basicProperties: null,
+                        basicProperties: properties,
                         body: body);
+                    
+                    channel.WaitForConfirmsOrDie();
                 }
             }
         }
