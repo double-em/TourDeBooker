@@ -36,3 +36,11 @@ services:
       dockerfile: EmailService/Dockerfile
     depends_on:
       - rabbitmq
+  
+  adminservice:
+    container_name: adminservice_1
+    build:
+      context: ../../src
+      dockerfile: AdminService/Dockerfile
+    depends_on:
+      - rabbitmq
