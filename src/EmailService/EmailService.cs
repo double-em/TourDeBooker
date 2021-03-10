@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,12 +56,14 @@ namespace EmailService
                 exchange: _exchangeName,
                 type: "topic");
 
+            var args = new Dictionary<string, object> {{"x-dead-letter-exchange", "my-dlx"}};
+
             _channel.QueueDeclare(
                 queue: _queueName,
-                durable: false,
+                durable: true,
                 exclusive: false,
                 autoDelete: false,
-                arguments: null);
+                arguments: args);
             
             _channel.QueueBind(
                 queue: _queueName,
@@ -83,7 +86,7 @@ namespace EmailService
                 
                 HandleMessage(routingKey, booking);
                 
-                _channel.BasicAck(ea.DeliveryTag, false);
+                _channel.BasicNack(ea.DeliveryTag, false, false);
             };
 
             _channel.BasicConsume(
