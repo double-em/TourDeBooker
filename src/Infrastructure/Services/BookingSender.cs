@@ -31,33 +31,31 @@ namespace Infrastructure.Services
 
         public void SendBooking(BookingModel booking)
         {
-            if (ConnectionExists())
-            {
-                using (var channel = _connection.CreateModel())
-                {
-                    channel.ExchangeDeclare(
-                        exchange: _exchangeName,
-                        type: "topic",
-                        durable: true);
+            if (!ConnectionExists()) return;
 
-                    var json = JsonConvert.SerializeObject(booking);
-                    var body = Encoding.UTF8.GetBytes(json);
+            using var channel = _connection.CreateModel();
+            
+            channel.ExchangeDeclare(
+                exchange: _exchangeName,
+                type: "topic",
+                durable: true);
 
-                    IBasicProperties properties = channel.CreateBasicProperties();
+            var json = JsonConvert.SerializeObject(booking);
+            var body = Encoding.UTF8.GetBytes(json);
+
+            var properties = channel.CreateBasicProperties();
                     
-                    properties.DeliveryMode = 2;
+            properties.DeliveryMode = 2;
+
+            channel.ConfirmSelect();
                     
-                    channel.ConfirmSelect();
+            channel.BasicPublish(
+                exchange: _exchangeName,
+                routingKey: $"{_exchangeName}.{booking.ActionType.ToString().ToLower()}",
+                basicProperties: properties,
+                body: body);
                     
-                    channel.BasicPublish(
-                        exchange: _exchangeName,
-                        routingKey: $"{_exchangeName}.{booking.ActionType.ToString().ToLower()}",
-                        basicProperties: properties,
-                        body: body);
-                    
-                    channel.WaitForConfirmsOrDie();
-                }
-            }
+            channel.WaitForConfirmsOrDie();
         }
 
         private void CreateConnection()
