@@ -40,22 +40,26 @@ namespace Infrastructure.Services
                 type: "topic",
                 durable: true);
 
-            var json = JsonConvert.SerializeObject(booking);
-            var body = Encoding.UTF8.GetBytes(json);
+            for (var i = 0; i < 3; i++)
+            {
+                var json = JsonConvert.SerializeObject(booking);
+                var body = Encoding.UTF8.GetBytes(json);
 
-            var properties = channel.CreateBasicProperties();
+                var properties = channel.CreateBasicProperties();
                     
-            properties.DeliveryMode = 2;
-
-            channel.ConfirmSelect();
+                properties.DeliveryMode = 2;
+                properties.MessageId = i.ToString();
+                
+                channel.ConfirmSelect();
                     
-            channel.BasicPublish(
-                exchange: _exchangeName,
-                routingKey: $"{_exchangeName}.{booking.ActionType.ToString().ToLower()}",
-                basicProperties: properties,
-                body: body);
+                channel.BasicPublish(
+                    exchange: _exchangeName,
+                    routingKey: $"{_exchangeName}.{booking.ActionType.ToString().ToLower()}",
+                    basicProperties: properties,
+                    body: body);
                     
-            channel.WaitForConfirmsOrDie();
+                channel.WaitForConfirmsOrDie();
+            }
         }
 
         private void CreateConnection()

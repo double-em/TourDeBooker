@@ -27,6 +27,8 @@ namespace BackOfficeService
         private readonly string _username;
         private readonly string _password;
 
+        private List<string> messageList = new();
+
         public BackOfficeService(ILogger<BackOfficeService> logger, IOptions<RabbitMqConfiguration> rabbitMqOptions)
         {
             _logger = logger;
@@ -86,9 +88,9 @@ namespace BackOfficeService
                 var booking = JsonConvert.DeserializeObject<BookingModel>(message);
                 var routingKey = ea.RoutingKey;
                 
-                HandleMessage(routingKey, booking);
-                
-                _channel.BasicNack(ea.DeliveryTag, false, false);
+                HandleMessage(ea.BasicProperties, routingKey, booking);
+
+                _channel.BasicAck(ea.DeliveryTag, false);
             };
 
             _channel.BasicConsume(
@@ -99,11 +101,21 @@ namespace BackOfficeService
             return Task.CompletedTask;
         }
 
-        private void HandleMessage(string routingKey, BookingModel booking)
+        private void HandleMessage(IBasicProperties properties, string routingKey, BookingModel booking)
         {
-            var currentTime = DateTime.Now.ToLocalTime().ToLongTimeString();
-            Console.WriteLine($"[{currentTime}] Received '{routingKey}': '{booking}'");
+            
+            
+            if (messageList.Count == 3)
+            {
+                var currentTime = DateTime.Now.ToLocalTime().ToLongTimeString();
+                Console.WriteLine($"[{currentTime}] Received '{routingKey}': '{booking}'\n" +
+                                  $"[Properties] MessageId: {properties.MessageId}, CorrelationId: {properties.CorrelationId}");
 
+                for (int i = 0; i < messageList.Count; i++)
+                {
+                    
+                }
+            }
         }
 
         private void RabbitMq_ConnectionShutdown(object sender, ShutdownEventArgs e)
